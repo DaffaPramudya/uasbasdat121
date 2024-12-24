@@ -53,11 +53,17 @@
         echo "<p>Minimum: " . $statistik['minimum'] . "</p>";
         echo "<p>Maksimum: " . $statistik['maksimum'] . "</p>";
         echo "<p>Rata-rata: " . $statistik['rata_rata'] . "</p>";
+        echo "<p>Q1: " . $statistik['q1'] . "</p>";
+        echo "<p>Q3: " . $statistik['q3'] . "</p>";
     }
 
     if (isset($pencilan)) {
-        foreach ($pencilan as $data) {
-            echo "<p>Nama: " . $data['nama'] . " - UKT: " . $data['ukt'] . "</p>";
+        if (!empty($pencilan)) {
+            foreach ($pencilan as $row) {
+                echo "Nama: " . $row['nama'] . " - UKT: " . $row['ukt'] . "<br>";
+            }
+        } else {
+            echo "Tidak ada data pencilan yang ditemukan.<br>";
         }
     }
 
