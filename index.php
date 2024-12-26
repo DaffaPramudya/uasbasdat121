@@ -8,6 +8,7 @@ include('Controller/mahasiswa-controller.php');  // Controller untuk logika apli
 // Membuat objek controller
 $controller = new MahasiswaController($conn);
 
+$mahasiswaList = $controller->getListMahasiswa();
 // Menangani form submission untuk registrasi mahasiswa
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Menyimpan data mahasiswa
@@ -28,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-
     // Menangani permintaan statistik
     if (isset($_POST['query'])) {
         $queryType = $_POST['query'];
@@ -42,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 // Panggil View untuk menampilkan form dan tabel
 include('View/register.php');
 ?>

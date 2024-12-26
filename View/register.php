@@ -8,11 +8,10 @@
 </head>
 <body>
 
-  <!-- Main Content -->
+
   <div class="main-container">
     <h1>Input Data UKT Mahasiswa</h1>
 
-    <!-- Form untuk Input Data -->
     <div class="form-container">
       <form method="POST">
         <label for="nama">Nama:</label>
@@ -34,8 +33,36 @@
       </form>
     </div>
 
-    <!-- Tombol untuk Query Statistik -->
     <div class="button-container">
+    <table class="data-mahasiswa">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Alamat</th>
+                <th>Prodi</th>
+                <th>UKT</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            // Display data from database
+            if (!empty($mahasiswaList)) {
+              foreach ($mahasiswaList as $row) {
+                echo "<tr>
+                  <td>{$row['nama']}</td>
+                  <td>{$row['nim']}</td>
+                  <td>{$row['alamat']}</td>
+                  <td>{$row['prodi']}</td>
+                  <td>{$row['ukt']}</td>
+                </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5'>No data available</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
       <form method="POST">
         <button type="submit" name="query" value="statistik">Statistik 5 Serangkai</button>
         <button type="submit" name="query" value="pencilan">Data Pencilan</button>
@@ -44,11 +71,10 @@
     </div>
   </div>
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <h3>Hasil Query</h3>
     <?php
-    // Menampilkan hasil query berdasarkan input user
+ 
     if (isset($statistik)) {
         echo "<p>Minimum: " . $statistik['minimum'] . "</p>";
         echo "<p>Maksimum: " . $statistik['maksimum'] . "</p>";
@@ -72,6 +98,5 @@
     }
     ?>
   </div>
-
 </body>
 </html>

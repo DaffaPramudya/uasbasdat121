@@ -1,5 +1,4 @@
 <?php
-// controllers/MahasiswaController.php
 
 include_once 'Model/mahasiswa-model.php';
 
@@ -23,12 +22,15 @@ class MahasiswaController {
     }
 
     public function getDataPencilan() {
-        $pencilanData = $this->mahasiswaModel->getDataPencilan();
-        return $pencilanData;
+        $pencilan = $this->mahasiswaModel->getDataPencilan();
+        return $pencilan;
     }
 
     public function getStandarDeviasi() {
         return $this->mahasiswaModel->getStandarDeviasi();
+    }
+    public function getListMahasiswa() {
+        return $this->mahasiswaModel->getAllMahasiswa();
     }
 }
 ?>
