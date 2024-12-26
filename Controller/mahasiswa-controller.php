@@ -10,6 +10,10 @@ class MahasiswaController {
         $this->mahasiswaModel = new MahasiswaModel($db);
     }
 
+    public function isDuplicateNIM($nim) {
+        return $this->mahasiswaModel->isDuplicateNIM($nim); 
+    }
+
     public function saveData($nama, $nim, $alamat, $prodi, $ukt) {
         return $this->mahasiswaModel->saveMahasiswa($nama, $nim, $alamat, $prodi, $ukt);
     }
