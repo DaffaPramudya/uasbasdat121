@@ -19,6 +19,16 @@ class MahasiswaModel {
         }
     }
 
+    //cek duplikat
+    public function isDuplicateNIM($nim) {
+        $sql = "SELECT * FROM mahasiswa WHERE nim = ?";
+        $stmt = $this->conn->prepare($sql); 
+        $stmt->bind_param("s", $nim);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0; // True jika ada duplikat
+    }
+
     // Mengambil statistik 5 serangkai
     public function getStatistik() {
         $result = $this->conn->query("SELECT 
