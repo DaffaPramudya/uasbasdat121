@@ -18,10 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $prodi = $_POST['prodi'];
         $ukt = $_POST['ukt'];
 
-        if ($controller->saveData($nama, $nim, $alamat, $prodi, $ukt)) {
-            echo "<p>Data berhasil disimpan!</p>";
+        if ($controller->isDuplicateNIM($nim)) {
+            echo '<p style="text-align: center; color: red;">Data with the same NIM already exists!</p>';
         } else {
-            echo "<p>Error menyimpan data.</p>";
+            if ($controller->saveData($nama, $nim, $alamat, $prodi, $ukt)) {
+                echo '<p style="text-align: center; color: green;">Data berhasil disimpan!</p>';
+            } else {
+                echo '<p style="text-align: center; color: red;">Error menyimpan data.</p>';
+            }
         }
     }
 
