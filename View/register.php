@@ -78,7 +78,7 @@
     if (isset($statistik)) {
         echo "<p>Minimum: " . $statistik['minimum'] . "</p>";
         echo "<p>Maksimum: " . $statistik['maksimum'] . "</p>";
-        echo "<p>Rata-rata: " . $statistik['rata_rata'] . "</p>";
+        echo "<p>Median: " . $statistik['median'] . "</p>";
         echo "<p>Q1: " . $statistik['q1'] . "</p>";
         echo "<p>Q3: " . $statistik['q3'] . "</p>";
     }

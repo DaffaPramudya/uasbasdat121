@@ -42,8 +42,7 @@ class MahasiswaModel {
     public function getStatistik() {
         $result = $this->conn->query("SELECT 
                                   MIN(ukt) AS minimum, 
-                                  MAX(ukt) AS maksimum, 
-                                  AVG(ukt) AS rata_rata 
+                                  MAX(ukt) AS maksimum
                                 FROM mahasiswa");
         $data = $result->fetch_assoc();
 
@@ -55,10 +54,23 @@ class MahasiswaModel {
         $count = count($ukts);
         $q1 = $ukts[round(($count - 1) * 0.25)];
         $q3 = $ukts[round(($count - 1) * 0.75)];
+
+        $sql = "SELECT ukt FROM mahasiswa ORDER BY ukt LIMIT 1 OFFSET " . floor(($count - 1) / 2);
+        $result = $this->conn->query($sql);
+
+        if ($count % 2 == 1) {
+            // If count is odd, the median is the middle value
+            $median = $ukts[round($count / 2)];
+        } else {
+            // If count is even, the median is the average of the two middle values
+            $middle1 = round($count / 2) - 1;
+            $middle2 = round($count / 2);
+            $median = ($ukts[$middle1] + $ukts[$middle2]) / 2;
+        }
         return [
             'minimum' => $data['minimum'],
             'maksimum' => $data['maksimum'],
-            'rata_rata' => $data['rata_rata'],
+            'median' => $median,
             'q1' => $q1,
             'q3' => $q3
         ];
