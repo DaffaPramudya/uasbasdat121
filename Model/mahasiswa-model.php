@@ -3,12 +3,10 @@ include 'config.php';
 class MahasiswaModel {
     private $conn;
 
-    // Koneksi database
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    // Menyimpan data mahasiswa
     public function saveMahasiswa($nama, $nim, $alamat, $prodi, $ukt) {
         $sql = "INSERT INTO mahasiswa (nama, nim, alamat, prodi, ukt) 
                 VALUES ('$nama', '$nim', '$alamat', '$prodi', $ukt)";
@@ -32,7 +30,6 @@ class MahasiswaModel {
         return $mahasiswaList;
     }
 
-    //cek duplikat
     public function isDuplicateNIM($nim) {
         $sql = "SELECT * FROM mahasiswa WHERE nim = ?";
         $stmt = $this->conn->prepare($sql); 
@@ -42,7 +39,6 @@ class MahasiswaModel {
         return $result->num_rows > 0; // True jika ada duplikat
     }
 
-    // Mengambil statistik 5 serangkai
     public function getStatistik() {
         $result = $this->conn->query("SELECT 
                                   MIN(ukt) AS minimum, 
@@ -67,7 +63,6 @@ class MahasiswaModel {
             'q3' => $q3
         ];
     }
-
 
     public function getDataPencilan() {
         $result = $this->conn->query("SELECT COUNT(*) AS total_count FROM mahasiswa");
@@ -117,8 +112,11 @@ class MahasiswaModel {
     }
 
     public function getStandarDeviasi() {
-        $result = $this->conn->query("SELECT STD(ukt) AS std_deviasi FROM mahasiswa");
-        return $result->fetch_assoc();
+
+        $result = $this->conn->query("SELECT SQRT(SUM(POWER(ukt - (SELECT AVG(ukt) FROM mahasiswa WHERE ukt IS NOT NULL), 2)) / COUNT(ukt)) AS std_deviasi FROM mahasiswa WHERE ukt IS NOT NULL");
+        $row = $result->fetch_assoc();
+        return $row;
+
     }
 }
 ?>
