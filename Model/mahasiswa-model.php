@@ -53,8 +53,8 @@ class MahasiswaModel {
           $ukts[] = $row['ukt'];
         }
         $count = count($ukts);
-        $q1 = $ukts[floor(($count - 1) * 0.25)];
-        $q3 = $ukts[floor(($count - 1) * 0.75)];
+        $q1 = $ukts[round(($count - 1) * 0.25)];
+        $q3 = $ukts[round(($count - 1) * 0.75)];
         return [
             'minimum' => $data['minimum'],
             'maksimum' => $data['maksimum'],
@@ -120,3 +120,6 @@ class MahasiswaModel {
     }
 }
 ?>
+
+
+
